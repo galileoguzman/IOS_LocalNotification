@@ -17,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // ask for permission to receive notification
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
         
         [application registerUserNotificationSettings:[UIUserNotificationSettings
