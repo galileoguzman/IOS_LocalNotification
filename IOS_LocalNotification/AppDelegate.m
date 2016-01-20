@@ -25,6 +25,11 @@
                                                        UIUserNotificationTypeSound categories:nil]];
     }
     
+    // clear badge number
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
+
+    
     [launchOptions valueForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     // Override point for customization after application launch.
     return YES;
