@@ -38,11 +38,49 @@
 // This code block is invoked when application is in foreground (active-mode)
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     
-    UIAlertView *notificationAlert = [[UIAlertView alloc] initWithTitle:@"Notification"    message:@"This local notification"
-                                                               delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    // UIAlertView is depretated on IOS9
+    // The solution is use UIAlertViewController object
     
-    [notificationAlert show];
-    // NSLog(@"didReceiveLocalNotification");
+    // Create object with title, message and style
+    UIAlertController * notificationAlert=   [UIAlertController
+                                  alertControllerWithTitle:@"Notification"
+                                  message:notification.alertBody
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    // Create AlertAction object with title and handler (optional)
+    UIAlertAction* yesButton = [UIAlertAction
+                                actionWithTitle:@"Yes"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * action)
+                                {
+                                    //Handel your yes please button action here
+                                    
+                                    
+                                }];
+    // Create AlertAction object with title and handler (optional)
+    UIAlertAction* noButton = [UIAlertAction
+                               actionWithTitle:@"No"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action)
+                               {
+                                   //Handel no, thanks button
+                                   
+                               }];
+    
+    // Add actions to UIAlertController
+    [notificationAlert addAction:yesButton];
+    [notificationAlert addAction:noButton];
+    
+    
+    // to show on top of view the alert we need to get rootViewController instanse
+    UIViewController *topRootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (topRootViewController.presentedViewController)
+    {
+        topRootViewController = topRootViewController.presentedViewController;
+    }
+    
+    // show over the top the alert
+    [topRootViewController presentViewController:notificationAlert animated:YES completion:nil];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
